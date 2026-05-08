@@ -19,7 +19,7 @@ const NavigationBar = ({ onShowCart, cartCount }) => {
           
 
         </div>
-                  cart <span className="badge bg-secondary">{cartCount}</span>
+                cart <span className="badge bg-secondary">{cartCount}</span>
         <Button variant="outline-light" onClick={onShowCart}>
         
         </Button>

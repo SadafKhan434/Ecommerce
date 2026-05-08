@@ -2,9 +2,11 @@ import { useState } from 'react';
 import NavigationBar from './components/NavigationBar';
 import Header from './components/Header';
 import ProductList from './components/ProductList';
-import CartModal from './components/CartModal';
+
 import Footer from './components/Footer';
 import './App.css';
+import Cart from './components/Cart';
+import { Button, Container } from 'react-bootstrap';
 
 const productsArr = [
   {
@@ -61,8 +63,8 @@ function App() {
 
       if (existingItem) {
         return currentCart.map((item) =>
-          item.title === product.title
-            ? { ...item, quantity: item.quantity + 1 }
+         item.title === product.title
+           ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
@@ -73,21 +75,29 @@ function App() {
 
   const cartQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
-
+    
+    
   return (
     <>
+    <Container>
+      <nav className='d-flex justify-content-end p-3'>
+        
+         
+        
+      </nav>
+      <main className='text-center mt-5'>
+        <h1>THE GENERICS</h1>
+      </main>
       <NavigationBar onShowCart={handleShowCart} cartCount={cartQuantity} />
       <Header />
       <ProductList title="MUSIC" products={productsArr} onAddToCart={handleAddToCart} />
       <ProductList title="MERCH" products={merchArr} onAddToCart={handleAddToCart} />
       <Footer onShowCart={handleShowCart} />
-      <CartModal
-        show={showCart}
-        onHide={handleCloseCart}
-        cartItems={cartItems}
-        total={cartTotal}
-      />
+      
+      <Cart show={showCart} onClose={()=>setShowCart(false)}/>
+      </Container>
     </>
+  
   );
 }
 
