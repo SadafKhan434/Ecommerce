@@ -2,8 +2,12 @@ import { Button } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
+import React,{useContext} from 'react';
+import CartContext from '../Store/CartContext';
 
 const NavigationBar = ({ onShowCart, cartCount }) => {
+  const cartCtx=useContext(CartContext);
+  const totalItemsCount=cartCtx.items.reduce((sum,item)=>sum+item.quantity,0)
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -20,7 +24,7 @@ const NavigationBar = ({ onShowCart, cartCount }) => {
 
         </div>
                 cart <span className="badge bg-secondary">{cartCount}</span>
-        <Button variant="outline-light" onClick={onShowCart}>
+        <Button variant="outline-light danger" onClick={onShowCart}>
         
         </Button>
       </div>

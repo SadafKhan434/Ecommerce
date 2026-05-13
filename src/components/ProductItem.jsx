@@ -1,6 +1,14 @@
 import { Card, Button } from 'react-bootstrap';
+import react,{useContext}from'react';
 
-const ProductItem = ({ product, onAddToCart }) => {
+import CartContext from '../Store/CartContext';
+
+
+                 
+   const ProductItem = ({ product, onAddToCart }) => {
+    const cartCtx = useContext(CartContext);
+    const handleAddToCart=() => {
+    cartCtx.addItem({ title, price,imageUrl});}
   return (
     <div className="col 8 d-flex">
       <div className='row g-0 align-items-center'>

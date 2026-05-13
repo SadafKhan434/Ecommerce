@@ -2,12 +2,12 @@ import { useState } from 'react';
 import NavigationBar from './components/NavigationBar';
 import Header from './components/Header';
 import ProductList from './components/ProductList';
-
+import CartProvider from './Store/CartProvider';
 import Footer from './components/Footer';
 import './App.css';
 import Cart from './components/Cart';
 import { Button, Container } from 'react-bootstrap';
-
+import './App.css';
 const productsArr = [
   {
     
@@ -79,6 +79,7 @@ function App() {
     
   return (
     <>
+    <CartProvider>
     <Container>
       <nav className='d-flex justify-content-end p-3'>
         
@@ -94,8 +95,16 @@ function App() {
       <ProductList title="MERCH" products={merchArr} onAddToCart={handleAddToCart} />
       <Footer onShowCart={handleShowCart} />
       
-      <Cart show={showCart} onClose={()=>setShowCart(false)}/>
+      <Cart show={showCart} onClose={()=>setShowCart(false)}
+      
+   
+  cartItems={cartItems} // Pass the real cart items
+  setCartItems={setCartItems} // Pass the setter to allow removal/quantity changes
+/>
+
+        
       </Container>
+      </CartProvider>
     </>
   
   );
