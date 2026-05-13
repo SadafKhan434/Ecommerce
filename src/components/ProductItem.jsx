@@ -10,11 +10,14 @@ import CartContext from '../Store/CartContext';
     const handleAddToCart=() => {
     cartCtx.addItem({ title, price,imageUrl});}
   return (
-    <div className="col 8 d-flex">
-      <div className='row g-0 align-items-center'>
-        <div className='col-4'>
-          <div className='col-8'>
-      <Card className="h-100 w-100" text='center'>
+    
+            <div className="col d-flex justify-content-center">
+  <Card className="h-100" style={{ width: '15rem' }}>
+     {/* Render code exactly once inside here */}
+  
+
+
+      
       
 
         <Card.Img
@@ -40,8 +43,8 @@ import CartContext from '../Store/CartContext';
         </Card.Body>
       </Card>
     </div>
-    </div></div>
-    </div>
+    
+    
   );
 };
 

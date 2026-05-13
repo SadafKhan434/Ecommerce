@@ -20,13 +20,27 @@ const CartProvider = (props) => {
     setItems((currentCart) => currentCart.filter((item) => item.title !== title));
   };
 
+  //const changeQuantityHandler = (title, newQuantity) => {
+    //setItems((currentCart) =>
+      //currentCart.map((item) =>
+      //  item.title === title ? { ...item, quantity: newQuantity } : item
+     // )
+    //);
+ // };
+  
   const changeQuantityHandler = (title, newQuantity) => {
+    // Drop item from array if quantity hits zero or less
+    if (newQuantity <= 0) {
+      setItems((currentCart) => currentCart.filter((item) => item.title !== title));
+      return;
+    }
+
     setItems((currentCart) =>
       currentCart.map((item) =>
-        item.title === title ? { ...item, quantity: newQuantity } : item
+        item.title === title ? { ...item, quantity: Number(newQuantity) } : item
       )
     );
-  };
+  }
 
   const clearCartHandler = () => {
     setItems([]);

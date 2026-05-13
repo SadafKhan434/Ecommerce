@@ -1,26 +1,23 @@
 import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import NavigationBar from './components/NavigationBar';
 import Header from './components/Header';
 import ProductList from './components/ProductList';
 import CartProvider from './Store/CartProvider';
 import Footer from './components/Footer';
-import './App.css';
 import Cart from './components/Cart';
-import { Button, Container } from 'react-bootstrap';
+import About from './components/About';
 import './App.css';
+
 const productsArr = [
   {
-    
     title: 'Album 1',
     price: 12.99,
     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-
-
   },
-    {
+  {
     title: 'Black and white Colors',
-
-
     price: 14.99,
     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
   },
@@ -53,10 +50,8 @@ function App() {
   const [showCart, setShowCart] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
-  const handleCloseCart = () => setShowCart(false);
   const handleShowCart = () => setShowCart(true);
   
-
   const handleAddToCart = (product) => {
     setCartItems((currentCart) => {
       const existingItem = currentCart.find((item) => item.title === product.title);
@@ -74,39 +69,47 @@ function App() {
   };
 
   const cartQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const cartTotal = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
     
-    
-  return (
+  // Grouping product rows into a clean component sub-render for route isolation
+  const StorePage = () => (
     <>
-    <CartProvider>
-    <Container>
-      <nav className='d-flex justify-content-end p-3'>
-        
-         
-        
-      </nav>
-      <main className='text-center mt-5'>
-        <h1>THE GENERICS</h1>
-      </main>
-      <NavigationBar onShowCart={handleShowCart} cartCount={cartQuantity} />
-      <Header />
       <ProductList title="MUSIC" products={productsArr} onAddToCart={handleAddToCart} />
       <ProductList title="MERCH" products={merchArr} onAddToCart={handleAddToCart} />
-      <Footer onShowCart={handleShowCart} />
-      
-      <Cart show={showCart} onClose={()=>setShowCart(false)}
-      
-   
-  cartItems={cartItems} // Pass the real cart items
-  setCartItems={setCartItems} // Pass the setter to allow removal/quantity changes
-/>
-
-        
-      </Container>
-      </CartProvider>
     </>
-  
+  );
+    
+  return (
+    <CartProvider>
+      <Router>
+        <Container>
+          {/* Universal Navbar positioned cleanly at the top layout layer */}
+          <NavigationBar onShowCart={handleShowCart} cartCount={cartQuantity} />
+          
+          {/* Global Header Banner Title */}
+          <Header />
+          
+          {/* Main Routing Container: Swaps views cleanly without content duplication */}
+          <main className='mt-4'>
+            <Routes>
+              <Route path="/" element={<StorePage />} />
+              <Route path="/store" element={<StorePage />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+          </main>
+          
+          {/* Universal Page Footer layout */}
+          <Footer onShowCart={handleShowCart} />
+          
+          {/* Overlay Shopping Modal state component */}
+          <Cart 
+            show={showCart} 
+            onClose={() => setShowCart(false)}
+            cartItems={cartItems}
+            setCartItems={setCartItems} 
+          />
+        </Container>
+      </Router>
+    </CartProvider>
   );
 }
 
