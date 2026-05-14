@@ -7,6 +7,7 @@ import ProductList from './components/ProductList';
 import CartProvider from './Store/CartProvider';
 import Footer from './components/Footer';
 import Cart from './components/Cart';
+import Home from './Store/Pages/Home';
 import About from './components/About';
 import './App.css';
 
@@ -82,16 +83,16 @@ function App() {
     <CartProvider>
       <Router>
         <Container>
-          {/* Universal Navbar positioned cleanly at the top layout layer */}
+          
           <NavigationBar onShowCart={handleShowCart} cartCount={cartQuantity} />
           
-          {/* Global Header Banner Title */}
+          
           <Header />
           
-          {/* Main Routing Container: Swaps views cleanly without content duplication */}
+        
           <main className='mt-4'>
             <Routes>
-              <Route path="/" element={<StorePage />} />
+              <Route path="/" element={<Home />} />
               <Route path="/store" element={<StorePage />} />
               <Route path="/about" element={<About />} />
             </Routes>

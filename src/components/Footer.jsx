@@ -1,16 +1,9 @@
-const Footer = ({ onShowCart }) => {
+const Header = () => {
   return (
-    <footer className="bg-dark text-white text-center py-3">
-      <button
-        type="button"
-        className="btn btn-link text-white"
-        onClick={onShowCart}
-        style={{ textDecoration: 'none' }}
-      >
-        See the cart
-      </button>
-    </footer>
+    <header className="bg-secondary text-white text-center py-5">
+      <h1>The Generics</h1>
+    </header>
   );
 };
 
-export default Footer;
+export default Header;
